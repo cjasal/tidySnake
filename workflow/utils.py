@@ -69,6 +69,7 @@ def list_valid_runs(
 
             entity, _ = entry.rsplit("_", maxsplit=1)
             entity = Path(entity).stem  # removes '.zip' if present
+            entity = entity.replace(".zip", "")
             runs.append(subject, session, entity)
 
     return runs, templates
