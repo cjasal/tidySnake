@@ -248,6 +248,18 @@ def mriqc_files_or_skip(wildcards):
 
     return files
 
+rule reorder_b0_first:
+    input:
+        nii = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.nii.gz",
+        bval = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.bval",
+        bvec = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.bvec"
+    output:
+        nii = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.nii.gz",
+        bval = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.bval",
+        bvec = f"{resultsdir}/bids/sub-{{subject}}/ses-{{session}}/{{modality}}/sub-{{subject}}_ses-{{session}}_{{entity}}_{{suffix}}.bvec"
+    script:
+        "scripts/b0_reorder.py"
+
 rule qc_status:
     localrule: True
     input:
