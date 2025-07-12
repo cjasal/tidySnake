@@ -145,7 +145,7 @@ rule mriqc:
     wildcard_constraints:
         suffix="T1w|T2w|bold|dwi"
     container:
-        "oras://docker.io/maximerio/mriqc:v1.0.0"
+        "docker://vnmd/mriqc_24.0.2"
     resources:
         cpus=lambda wildcards, threads: threads,
         mem_mb=config["mriqc"]["mem_mb"],

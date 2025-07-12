@@ -1,0 +1,11 @@
+prefix=/nesi/project/uoa03264/csal175/tidySnake/workflow/test_reorder_env
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/nesi/project/uoa03264/csal175/tidySnake/workflow/test_reorder_env/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.4.6
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

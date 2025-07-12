@@ -1,0 +1,5 @@
+#!/nesi/project/uoa03264/csal175/tidySnake/workflow/test_reorder_env/bin/python3.13
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()
