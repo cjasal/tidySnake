@@ -250,15 +250,22 @@ rule qc_status:
         mriqc_files_or_skip,
         template=workflow.source_path("templates/qc_status.yaml")
     output:
-        "{resultsdir}/bids/derivatives/mriqc/sub-{subject}_ses-{session}_qc.yaml"
+        qc_yaml="{resultsdir}/bids/derivatives/mriqc/sub-{subject}_ses-{session}_qc.yaml"
     params:
         modalities=lambda wildcards: find_modalities(
             wildcards.subject, wildcards.session, wildcards.resultsdir
         ),
         anat_template=find_anat_template,
-        qc_default_value=config.get("qc_status", {}).get("default", False)
-    template_engine:
-        "jinja2"
+        qc_values=lambda wildcards, output: (
+            # If YAML exists, read current values
+            yaml.safe_load(Path(output.qc_yaml).read_text())
+            if Path(output.qc_yaml).exists()
+            else None
+        ),
+        qc_default_value=lambda wildcards, params: str(
+            config.get("qc_status", {}).get("default", False)
+        ).lower()
+    template_engine: "jinja2"
 
 rule qc_summary:
     localrule: True
