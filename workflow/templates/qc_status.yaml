@@ -1,3 +1,5 @@
+This is the template:
+
 {% if params.anat_template -%}
 # T1w anatomical template
 anat_template: {{ params.anat_template }}
@@ -5,10 +7,5 @@ anat_template: {{ params.anat_template }}
 {% endif -%}
 # runs found for each modality, replace False value with True if quality is satisfying
 {% for entity, suffix in params.modalities -%}
-{% set key = entity + '_' + suffix %}
-{% if params.qc_values is not none and key in params.qc_values -%}
-{{ key }}: {{ params.qc_values[key] }}
-{% else -%}
-{{ key }}: {{ params.qc_default_value }}
-{% endif -%}
+{{ entity }}_{{ suffix }}: {{ params.qc_default_value }}
 {% endfor -%}
