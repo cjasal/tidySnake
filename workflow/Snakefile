@@ -257,12 +257,11 @@ rule qc_status:
         ),
         anat_template=find_anat_template,
         qc_values=lambda wildcards, output: (
-            # If YAML exists, read current values
             yaml.safe_load(Path(output.qc_yaml).read_text())
             if Path(output.qc_yaml).exists()
             else None
         ),
-        qc_default_value=lambda wildcards, params: str(
+        qc_default_value=lambda wildcards: str(
             config.get("qc_status", {}).get("default", False)
         ).lower()
     template_engine: "jinja2"
