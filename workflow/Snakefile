@@ -244,17 +244,20 @@ def mriqc_files_or_skip(wildcards):
 
     return files
 
-rule qc_status: 
-    localrule: True 
-    input: 
-        mriqc_files_or_skip, 
-        template=workflow.source_path("templates/qc_status.yaml") 
-    output: 
-        "{resultsdir}/bids/derivatives/mriqc/sub-{subject}_ses-{session}_qc.yaml" 
-    params: 
-        modalities=lambda wildcards: find_modalities( wildcards.subject, wildcards.session, wildcards.resultsdir ), 
-        anat_template=find_anat_template, qc_default_value=config.get("qc_status", {}).get("default", False) 
-    template_engine: 
+rule qc_status:
+    localrule: True
+    input:
+        mriqc_files_or_skip,
+        template=workflow.source_path("templates/qc_status.yaml")
+    output:
+        "{resultsdir}/bids/derivatives/mriqc/sub-{subject}_ses-{session}_qc.yaml"
+    params:
+        modalities=lambda wildcards: find_modalities(
+            wildcards.subject, wildcards.session, wildcards.resultsdir
+        ),
+        anat_template=find_anat_template,
+        qc_default_value=config.get("qc_status", {}).get("default", False)
+    template_engine:
         "jinja2"
 
 rule qc_summary:
